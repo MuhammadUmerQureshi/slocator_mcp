@@ -27,18 +27,18 @@ RUN uv pip install --system -e . 2>/dev/null || pip install --no-cache-dir -e .
 COPY . .
 
 # Create runtime directories
-RUN mkdir -p sessions reports logs
+RUN mkdir -p logs
 
 # Non-root user for security
 RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
 USER appuser
 
 # Expose MCP Server port
-EXPOSE 8001
+EXPOSE 8100
 
 # Health check via SSE endpoint
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-    CMD curl -f http://localhost:8001/sse || exit 1
+    CMD curl -f http://localhost:8100/sse || exit 1
 
 # Run MCP Server with SSE transport
 CMD ["python", "mcp_server.py"]
