@@ -38,7 +38,7 @@ def register_report_analysis_tools(mcp: FastMCP):
         """,
     )
     async def report_analysis(
-        report_contents: str = Field(description="Plain text content of the report (HTML-stripped by caller)"),
+        report_contents: str = Field(description="Report content to analyze (raw HTML or plain text)"),
         user_query: str = Field(description="Question or analysis request about the report"),
         model: str = Field(default=config.llm.model, description="LLM model to use for analysis"),
         temperature: float = Field(default=config.llm.temperature, description="Temperature for LLM responses (0.0-1.0)"),
